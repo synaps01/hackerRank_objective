@@ -10,9 +10,18 @@ int main(int argc, const char * argv[]){
     NSString *f2=[timeString substringToIndex:2];
     NSString *l2=[timeString substringFromIndex: [timeString length] - 2];
     NSString *mid=[[timeString substringFromIndex:2] substringToIndex:[timeString length]-4];
+    int i = f2.intValue;
     if([l2 isEqualToString:@"PM"]){
-        int i = f2.intValue + 12;
-        f2 = [NSString stringWithFormat:@"%d",i];
+        if(i<12){
+            i+=12;
+            f2 = [NSString stringWithFormat:@"%d",i];
+        }else if(i==0){
+            f2 = @"00";
+        }
+    }else{
+        if(i==12){
+            f2 = @"00";
+        }
     }
     NSString *hString=[f2 stringByAppendingString:mid];
     printf("%s\n",[hString UTF8String]);
